@@ -18,9 +18,42 @@ const allIDs = [];
 
 // ES6 function to begin building the team
 const startMenu = () => {
+  // Generic structure for creating employee of all types
+  const createRole = (roleType) => {
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "name",
+          message: `What is the ${roleType}'s name?`,
+          validate: (response) => {
+            if (typeof response === "string" && response !== "") {
+              return true;
+            }
+            return `You must enter a name!`;
+          },
+        },
+      ])
+      .then((response) => {
+        if (roleType === "Manager") {
+          const manager = new Manager(
+            response.name,
+            "1",
+            "test@test.com",
+            "555-123-2234"
+          );
+          allTeamMembers.push(manager);
+          allIDs.push(manager[1]);
+        }
+      });
+  };
+
+  // ES6 function to createManager
   const createManager = () => {
     console.log(`Let's build your team!`);
+    createRole("Manager");
   };
+  // Initiate createManager
   createManager();
 };
 
