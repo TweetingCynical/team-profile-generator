@@ -18,6 +18,34 @@ const allIDs = [];
 
 // ES6 function to begin building the team
 const startMenu = () => {
+  const finaliseTeam = () => {
+    console.log(`Your team is about to be created...`);
+  };
+  // ES6 function to add other team members after Manager
+  const createTeam = () => {
+    inquirer
+      .prompt([
+        {
+          type: "list",
+          name: "roleChoice",
+          message: "Which type of team member do you want to create?",
+          choices: [
+            "Manager",
+            "Engineer",
+            "Intern",
+            "No more employees needed",
+          ],
+        },
+      ])
+      .then((userResponse) => {
+        if (userResponse.roleChoice !== "No more employees needed") {
+          createRole(userResponse.roleChoice);
+        } else {
+          finaliseTeam();
+        }
+      });
+  };
+
   // Generic structure for creating employee of all types
   const createRole = (roleType) => {
     inquirer
@@ -73,11 +101,12 @@ const startMenu = () => {
           },
         },
         // Non-generic questions specific to each employee type
+        // Manager specific
         {
           type: "input",
           name: "officeNumber",
           message: `What is the ${roleType}'s Office Number?`,
-          when: roleType === "Engineer",
+          when: roleType === "Manager",
           validate: (officeNumber) => {
             // Test response to check it only contains numeric characters or hyphens or plus signs, and also trim leading or trailing white spaces
             if (/^\d+$/.test(officeNumber.trim())) {
@@ -85,6 +114,13 @@ const startMenu = () => {
             }
             return `You must enter a valid telephone number!`;
           },
+        },
+        // Engineer specific
+        {
+          type: "input",
+          name: "github",
+          message: `What is the ${roleType}'s GitHub username?`,
+          when: roleType === "Engineer",
         },
       ])
       .then((response) => {
@@ -96,9 +132,19 @@ const startMenu = () => {
             response.officeNumber
           );
           allTeamMembers.push(manager);
-          allIDs.push(response.id);
-          console.log(allTeamMembers);
         }
+        if (roleType === "Engineer") {
+          const engineer = new Engineer(
+            response.name,
+            response.id,
+            response.email,
+            response.github
+          );
+          allTeamMembers.push(engineer);
+        }
+        allIDs.push(response.id);
+        console.log(allTeamMembers);
+        createTeam();
       });
   };
 
