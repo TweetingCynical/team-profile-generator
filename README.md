@@ -85,6 +85,7 @@ npm test
 
 - ✅ ~~Add colour coded cards to the employee type;~~
 - ✅ ~~Use DRY principle to reuse the createRole function for each role type, allowing questions to be asked only if they are relevant to the role;~~
+- ✅ ~~Allow users to add multiple managers, to accomodate teams which have shared managerial responsibilities;~~
 - Ability to upload photographs for each employee;
 - Consider additional tests needed for edge cases;
 - Add hierarchy options to allow managers to see the employees who operate underneath them;
