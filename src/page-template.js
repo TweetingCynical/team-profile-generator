@@ -3,7 +3,7 @@ const generateTeam = (team) => {
   // creates the manager html
   const generateManager = (manager) => {
     return `
-        <div class="card employee-card m-2">
+        <div class="card employee-card m-2 border border-success shadow-lg">
         <div class="card-header bg-success">
             <h2 class="card-title text-light">${manager.getName()}</h2>
             <h3 class="card-title text-light"><i class="fas fa-mug-hot mr-2"></i>${manager.getRole()}</h3>
@@ -22,7 +22,7 @@ const generateTeam = (team) => {
   // creates the html for engineers
   const generateEngineer = (engineer) => {
     return `
-        <div class="card employee-card m-2">
+        <div class="card employee-card m-2 border border-warning shadow-lg">
     <div class="card-header bg-warning">
         <h2 class="card-title">${engineer.getName()}</h2>
         <h3 class="card-title"><i class="fas fa-glasses mr-2"></i>${engineer.getRole()}</h3>
@@ -41,10 +41,10 @@ const generateTeam = (team) => {
   // creates the html for interns
   const generateIntern = (intern) => {
     return `
-        <div class="card employee-card m-2">
-    <div class="card-header bg-primary">
-        <h2 class="card-title">${intern.getName()}</h2>
-        <h3 class="card-title"><i class="fas fa-user-graduate mr-2"></i>${intern.getRole()}</h3>
+        <div class="card employee-card m-2 border border-info shadow-lg">
+    <div class="card-header bg-info">
+        <h2 class="card-title text-light">${intern.getName()}</h2>
+        <h3 class="card-title text-light"><i class="fas fa-user-graduate mr-2"></i>${intern.getRole()}</h3>
     </div>
     <div class="card-body">
         <ul class="list-group">
@@ -90,7 +90,7 @@ module.exports = (team) => {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>My Team</title>
+    <title>Team Profile</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
@@ -100,15 +100,15 @@ module.exports = (team) => {
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 jumbotron mb-3 team-heading">
-                <h1 class="text-center">My Team</h1>
+            <div class="col-12 jumbotron mb-3 team-heading bg-danger shadow-lg">
+                <h1 class="text-center text-light">Your Team</h1>
             </div>
         </div>
     </div>
     <div class="container">
         <div class="row">
-            <div class="team-area col-12 d-flex justify-content-center">
-                ${generateTeam(team)}
+            <div class="team-area col-12 d-flex justify-content-center align-items-stretch">    
+            ${generateTeam(team)}
             </div>
         </div>
     </div>

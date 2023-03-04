@@ -168,7 +168,7 @@ const startMenu = () => {
           allTeamMembers.push(intern);
         }
         allIDs.push(response.id);
-        console.log(allTeamMembers);
+        // console.log(allTeamMembers);
         createTeam();
       });
   };
