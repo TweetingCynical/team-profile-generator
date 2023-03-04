@@ -20,6 +20,11 @@ const allIDs = [];
 const startMenu = () => {
   const finaliseTeam = () => {
     console.log(`Your team is about to be created...`);
+    if (!fs.existsSync(OUTPUT_DIR)) {
+      fs.mkdirSync(OUTPUT_DIR);
+    }
+    fs.writeFileSync(outputPath, render(allTeamMembers), "utf-8");
+    console.log(`Take a look in the Output folder to see your team file!`);
   };
   // ES6 function to add other team members after Manager
   const createTeam = () => {
@@ -109,7 +114,7 @@ const startMenu = () => {
           when: roleType === "Manager",
           validate: (officeNumber) => {
             // Test response to check it only contains numeric characters or hyphens or plus signs, and also trim leading or trailing white spaces
-            if (/^\d+$/.test(officeNumber.trim())) {
+            if (/^[0-9-+]+$/.test(officeNumber.trim())) {
               return true;
             }
             return `You must enter a valid telephone number!`;
