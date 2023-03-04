@@ -60,6 +60,7 @@ const startMenu = () => {
           type: "input",
           name: "name",
           message: `What is the ${roleType}'s name?`,
+          default: `Test ${roleType}`,
           validate: (name) => {
             // Test response to check it only contains upper or lower case alpha characters or spaces, and also trim leading or trailing white spaces
             if (/^[a-zA-Z ]+$/.test(name.trim())) {
@@ -73,6 +74,7 @@ const startMenu = () => {
           type: "input",
           name: "id",
           message: `What is the ${roleType}'s ID?`,
+          default: String(Math.floor(Date.now() / 1000)),
           validate: (id) => {
             // Test response to check it only contains numeric characters, and also trim leading or trailing white spaces
             if (/^\d+$/.test(id.trim())) {
@@ -90,6 +92,7 @@ const startMenu = () => {
           type: "input",
           name: "email",
           message: `What is the ${roleType}'s email address?`,
+          default: `${roleType}@test.com`,
           // Add a validation check to email address input
           // Used with permission from Stack Overflow:
           // https://stackoverflow.com/questions/65189877/how-can-i-validate-that-a-user-input-their-email-when-using-inquirer-npm
@@ -111,6 +114,7 @@ const startMenu = () => {
           type: "input",
           name: "officeNumber",
           message: `What is the ${roleType}'s Office Number?`,
+          default: "555-123-4567",
           when: roleType === "Manager",
           validate: (officeNumber) => {
             // Test response to check it only contains numeric characters or hyphens or plus signs, and also trim leading or trailing white spaces
@@ -125,6 +129,7 @@ const startMenu = () => {
           type: "input",
           name: "github",
           message: `What is the ${roleType}'s GitHub username?`,
+          default: "TweetingCynical",
           when: roleType === "Engineer",
         },
         // Intern specific
@@ -132,6 +137,7 @@ const startMenu = () => {
           type: "input",
           name: "school",
           message: `What is the ${roleType}'s School?`,
+          default: "MIT",
           when: roleType === "Intern",
         },
       ])
