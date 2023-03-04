@@ -27,7 +27,8 @@ const startMenu = () => {
           name: "name",
           message: `What is the ${roleType}'s name?`,
           validate: (response) => {
-            if (typeof response === "string" && response !== "") {
+            // Test response to check it only contains upper or lower case alpha characters or spaces, and also trim leading or trailing white spaces
+            if (/^[a-zA-Z ]+$/.test(response.trim())) {
               return true;
             }
             return `You must enter a name!`;
@@ -44,6 +45,7 @@ const startMenu = () => {
           );
           allTeamMembers.push(manager);
           allIDs.push(manager[1]);
+          console.log(allTeamMembers);
         }
       });
   };
