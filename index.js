@@ -122,6 +122,13 @@ const startMenu = () => {
           message: `What is the ${roleType}'s GitHub username?`,
           when: roleType === "Engineer",
         },
+        // Intern specific
+        {
+          type: "input",
+          name: "school",
+          message: `What is the ${roleType}'s School?`,
+          when: roleType === "Intern",
+        },
       ])
       .then((response) => {
         if (roleType === "Manager") {
@@ -132,8 +139,7 @@ const startMenu = () => {
             response.officeNumber
           );
           allTeamMembers.push(manager);
-        }
-        if (roleType === "Engineer") {
+        } else if (roleType === "Engineer") {
           const engineer = new Engineer(
             response.name,
             response.id,
@@ -141,6 +147,14 @@ const startMenu = () => {
             response.github
           );
           allTeamMembers.push(engineer);
+        } else if (roleType === "Intern") {
+          const intern = new Intern(
+            response.name,
+            response.id,
+            response.email,
+            response.school
+          );
+          allTeamMembers.push(intern);
         }
         allIDs.push(response.id);
         console.log(allTeamMembers);
@@ -148,13 +162,9 @@ const startMenu = () => {
       });
   };
 
-  // ES6 function to createManager
-  const createManager = () => {
-    console.log(`Let's build your team!`);
-    createRole("Manager");
-  };
-  // Initiate createManager
-  createManager();
+  // Initiate createRole to create the manager first
+  console.log(`Let's build your team!`);
+  createRole("Manager");
 };
 
 // Initiate startMenu
