@@ -10,6 +10,19 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./src/page-template.js");
 
+// Add empty array for storing all team member objects
+const allTeamMembers = [];
 
-// TODO: Write Code to gather information about the development team members, and render the HTML file.
+// Add empty array for storing all team member IDs
+const allIDs = [];
 
+// ES6 function to begin building the team
+const startMenu = () => {
+  const createManager = () => {
+    console.log(`Let's build your team!`);
+  };
+  createManager();
+};
+
+// Initiate startMenu
+startMenu();
