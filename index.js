@@ -22,16 +22,68 @@ const startMenu = () => {
   const createRole = (roleType) => {
     inquirer
       .prompt([
+        // Get the name of the Employee
         {
           type: "input",
           name: "name",
           message: `What is the ${roleType}'s name?`,
-          validate: (response) => {
+          validate: (name) => {
             // Test response to check it only contains upper or lower case alpha characters or spaces, and also trim leading or trailing white spaces
-            if (/^[a-zA-Z ]+$/.test(response.trim())) {
+            if (/^[a-zA-Z ]+$/.test(name.trim())) {
               return true;
             }
             return `You must enter a name!`;
+          },
+        },
+        // Get the ID of the Employee
+        {
+          type: "input",
+          name: "id",
+          message: `What is the ${roleType}'s ID?`,
+          validate: (id) => {
+            // Test response to check it only contains numeric characters, and also trim leading or trailing white spaces
+            if (/^\d+$/.test(id.trim())) {
+              // Test response to check if has not already been used for a different employee
+              if (allIDs.includes(id.trim())) {
+                return `This Employee ID has already been taken. Please choose a new ID number.`;
+              }
+              return true;
+            }
+            return `You must only enter a number!`;
+          },
+        },
+        // Get the employee's email address
+        {
+          type: "input",
+          name: "email",
+          message: `What is the ${roleType}'s email address?`,
+          // Add a validation check to email address input
+          // Used with permission from Stack Overflow:
+          // https://stackoverflow.com/questions/65189877/how-can-i-validate-that-a-user-input-their-email-when-using-inquirer-npm
+          validate: (email) => {
+            // Regex mail check (return true if valid mail)
+            if (
+              /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(
+                email
+              )
+            ) {
+              return true;
+            }
+            return `You must enter a valid email address`;
+          },
+        },
+        // Non-generic questions specific to each employee type
+        {
+          type: "input",
+          name: "officeNumber",
+          message: `What is the ${roleType}'s Office Number?`,
+          when: roleType === "Engineer",
+          validate: (officeNumber) => {
+            // Test response to check it only contains numeric characters or hyphens or plus signs, and also trim leading or trailing white spaces
+            if (/^\d+$/.test(officeNumber.trim())) {
+              return true;
+            }
+            return `You must enter a valid telephone number!`;
           },
         },
       ])
@@ -39,12 +91,12 @@ const startMenu = () => {
         if (roleType === "Manager") {
           const manager = new Manager(
             response.name,
-            "1",
-            "test@test.com",
-            "555-123-2234"
+            response.id,
+            response.email,
+            response.officeNumber
           );
           allTeamMembers.push(manager);
-          allIDs.push(manager[1]);
+          allIDs.push(response.id);
           console.log(allTeamMembers);
         }
       });
